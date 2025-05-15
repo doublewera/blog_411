@@ -5,3 +5,13 @@
 
 <h1>{{ posts.0.title }}</h1>
 <p>{{ posts.0.text }}</p>
+
+<h1>{{ posts.1.title }}</h1>
+<p>{{ posts.1.text }}</p>
+
+<p>А ТЕПЕРЬ ЦИКЛОМ!!!</p>
+
+{% for p in posts %}
+    <h1>{{ p.title }}</h1>
+    <p>{{ p.text }}</p>
+{% endfor %}
