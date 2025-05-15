@@ -22,3 +22,14 @@ def article(request):
         'article/page.html',
         context
     )
+
+from . import models
+def get_my_blog_posts(request):
+    context = {  # Это словарь контекста, он целиком передается в страницу-шаблон
+        'posts': models.Article.objects.all()
+    }
+    return render(
+        request,
+        'article/page.html',
+        context
+    )
