@@ -25,10 +25,11 @@ def article(request):
 
 from datetime import datetime
 from . import models
-def get_my_blog_posts(request):
+def get_my_blog_posts(request, uid):
+    print('Я получил', uid)
     context = {  # Это словарь контекста, он целиком передается в страницу-шаблон
         'posts': models.Article.objects.filter(
-            dt__lt=datetime(2025, 5, 21)
+            user_id=uid
         )
     }
     return render(
