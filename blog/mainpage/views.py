@@ -7,6 +7,21 @@ def main(request):
         # здесь будут данные!
     )
 
+from article import models
+from django.core.paginator import Paginator
+def feed(request):
+    articles = models.Article.objects.all()
+    article_paginator = Paginator(articles, 2)
+    page = request.GET.get('page')
+    context = {
+        'posts': article_paginator.get_page(page)
+    }
+    return render(
+        request,               # так будет всегда
+        'mainpage/feed.html',  # путь к шаблону
+        context
+    )
+
 def summary(request):
     return render(
         request,               # так будет всегда

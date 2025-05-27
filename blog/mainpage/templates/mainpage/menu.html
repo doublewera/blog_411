@@ -4,7 +4,10 @@
             <a href="/">Главная</a>
         </td>
         <td>
-            <a href={% url 'article' %}>Статья 1</a>
+            <a href={% url 'new_article' %}>Написать статью</a>
+        </td>
+        <td>
+            <a href={% url 'article' 1 %}>Статья 1</a>
         </td>
     </tr>
 </table>

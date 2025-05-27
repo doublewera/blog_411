@@ -23,6 +23,22 @@ def article(request):
         context
     )
 
+from . import forms
+def new_article(request):
+    context = {
+        'new_blog_post_form': forms.BlogPostForm()
+    }
+    print(request.POST)
+    form = forms.BlogPostForm(request.POST)
+    if form.is_valid():
+        print(form.cleaned_data)
+        form.save()
+    return render(
+        request,
+        'article/new_article.html',
+        context
+    )
+
 from datetime import datetime
 from . import models
 def get_my_blog_posts(request, uid):

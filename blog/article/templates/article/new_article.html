@@ -1,0 +1,8 @@
+{% extends 'mainpage/main.html' %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    {{ new_blog_post_form }}
+    <input type="submit" value="Запостить">
+</form>
+{% endblock %}
