@@ -1,5 +1,7 @@
 {% extends 'mainpage/header_footer.html' %}
+{% load static %}
 {% block menu %}
+<link rel="stylesheet" href={% static 'mainpage/style.css' %} >
    {% include 'mainpage/menu.html' %}
 {% endblock %}
 {% block content %}

@@ -1,0 +1,33 @@
+h1 {
+    font-variant: small-caps;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+form, #menu a {
+    text-decoration: double;
+    /* text-transform: uppercase; */
+    border: 1px solid grey;
+    border-radius: 1vh;
+    box-shadow: 0.5vh 0.5vh 0.5vh 0.5vh grey;
+}
+
+#menu a {
+    margin: 2vh;
+    padding: 1vh 5vh 1vh 5vh;
+}
+
+#menu a:hover {
+    border: 1px solid black;
+    box-shadow: 0.5vh 0.5vh 0.5vh 0.5vh black;
+}
+
+form {
+    margin: 3vh;
+    padding: 2vh;
+    max-width: fit-content;
+}
+
+body {
+    text-align: center;
+}

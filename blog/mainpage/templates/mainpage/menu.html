@@ -1,13 +1,5 @@
-<table>
-    <tr>
-        <td>
-            <a href="/">Главная</a>
-        </td>
-        <td>
-            <a href={% url 'new_article' %}>Написать статью</a>
-        </td>
-        <td>
-            <a href={% url 'article' 1 %}>Статья 1</a>
-        </td>
-    </tr>
-</table>
+<div id="menu">
+    <a href="/">Главная</a>
+    <a href={% url 'new_article' %}>Написать статью</a>
+    <a href={% url 'article' 1 %}>Статья 1</a>
+</div>
