@@ -5,6 +5,10 @@
         {% csrf_token %}
         {{ form }}
         <p><input type="submit" value="Войти"></p>
-        <input type="hidden" name="next" value="/">
+        {% if next %}
+            <input type="hidden" name="next" value="{{ next }}">
+        {% else %}
+            <input type="hidden" name="next" value="/">
+        {% endif %}
     </form>
 {% endblock %}

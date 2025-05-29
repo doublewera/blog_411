@@ -24,6 +24,8 @@ def article(request):
     )
 
 from . import forms
+from django.contrib.auth.decorators import login_required
+@login_required(login_url='/login/')
 def new_article(request):
     context = {
         'new_blog_post_form': forms.BlogPostForm()
