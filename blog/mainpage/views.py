@@ -31,3 +31,27 @@ def summary(request):
         'mainpage/summary.html',  # путь к шаблону
         # здесь будут данные!
     )
+
+from . import forms
+from django.contrib import auth
+
+def register(request):
+    if request.method == 'POST':
+        user_form = forms.UserRegistrationForm(request.POST)
+        if user_form.is_valid():
+            # Create a new user object but avoid saving it yet
+            new_user = user_form.save(commit=False)
+            # Set the chosen password
+            new_user.set_password(user_form.cleaned_data['password'])
+            # Save the User object
+            new_user.save()
+            auth.login(request, new_user)
+            return redirect('/')
+    else:
+        user_form = forms.UserRegistrationForm()
+    return render(
+        request,
+        'user/register.html',
+        {
+            'form': user_form
+        })

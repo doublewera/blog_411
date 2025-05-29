@@ -1,0 +1,10 @@
+{% extends 'mainpage/main.html' %}
+{% block content %}
+    <h1>Хотите зарегистрироваться?</h1>
+    <p>Заполните поля и подпишите форму:</p>
+    <form action="." method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <p><input type="submit" value="Подписать"></p>
+    </form>
+{% endblock %}
