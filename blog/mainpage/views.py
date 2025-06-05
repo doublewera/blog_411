@@ -31,6 +31,11 @@ def summary(request):
         'mainpage/summary.html',  # путь к шаблону
         # здесь будут данные!
     )
+def myfetch(request):
+    return render(
+        request,
+        'mainpage/myfetch.html'
+    )
 
 from . import forms
 from django.contrib import auth
