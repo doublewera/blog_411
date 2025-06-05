@@ -31,10 +31,24 @@ def summary(request):
         'mainpage/summary.html',  # путь к шаблону
         # здесь будут данные!
     )
+import random
 def myfetch(request):
+    print(request.GET)  # {'count': ['6']}
+    context = {
+        'questions': []
+    } #                    ['6']           '6'
+    if 'count' in request.GET:
+        print('MAXVAL: ', request.GET['maxval'])
+        print('MAXVAL: ', request.GET['count'])
+        for i in range(0, int(request.GET['count'])):
+            # 'maxval': ['10']
+            a = random.randint(2, int(request.GET['maxval']))
+            b = random.randint(2, int(request.GET['maxval']))    
+            context['questions'].append((a, b))
     return render(
         request,
-        'mainpage/myfetch.html'
+        'mainpage/myfetch.html',
+        context
     )
 
 from . import forms
