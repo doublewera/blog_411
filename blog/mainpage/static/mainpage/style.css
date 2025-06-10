@@ -31,3 +31,13 @@ form {
 body {
     text-align: center;
 }
+
+table{
+    margin: 10px;    
+    border-collapse:collapse;
+}
+
+td {
+    border: 1px solid black;
+    padding: 5px;
+}

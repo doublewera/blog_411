@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.http import JsonResponse
+from . import models
 
 def article(request):
     context = {  # Это словарь контекста, он целиком передается в страницу-шаблон
@@ -23,6 +25,35 @@ def article(request):
         context
     )
 
+
+def new_blog_posts(request):
+    print('Старше какой даты прислать посты? ', request.GET.get('dt'))
+    dtmin = request.GET.get('dt')
+    newest_posts = []
+    for post in models.Article.objects.filter(dt__gt=dtmin):
+        newest_posts.append({
+            'user': post.user.username,
+            'title': post.title,
+            'text': post.text,
+            'dt': post.dt
+        })
+    context = {
+        'posts': newest_posts
+    }
+    print(context)
+    return JsonResponse(context)
+
+
+def all_blog_posts(request):
+    context = {
+        'posts': models.Article.objects.all()
+    }
+    return render(
+        request,
+        'article/feed.html',
+        context
+    )
+
 from . import forms
 from django.contrib.auth.decorators import login_required
 @login_required(login_url='/login/')
@@ -42,7 +73,6 @@ def new_article(request):
     )
 
 from datetime import datetime
-from . import models
 def get_my_blog_posts(request, uid):
     print('Я получил', uid)
     context = {  # Это словарь контекста, он целиком передается в страницу-шаблон

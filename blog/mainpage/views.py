@@ -1,4 +1,18 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
+
+def mult(request):
+    return render(
+        request,               # так будет всегда
+        'mainpage/multi.html',  # путь к шаблону
+        # здесь будут данные!
+    )
+
+def multidata(request):
+    # content-Type: JSON
+    return JsonResponse({
+        'my_size': 25
+    })
 
 def main(request):
     return render(

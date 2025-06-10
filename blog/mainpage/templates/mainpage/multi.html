@@ -1,0 +1,9 @@
+{% load static %}
+<link  href={% static 'mainpage/style.css' %} rel="stylesheet" >
+<script src={% static 'mainpage/multi.js' %}> </script>
+
+<p>Введите размер таблицы умножения</p>
+<form action={% url 'multi_tbl_data' %}>
+    <input type="button" onclick="get_multi_data()" value="OK">
+</form>
+

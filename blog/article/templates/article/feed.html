@@ -1,5 +1,7 @@
 {% extends 'mainpage/main.html' %}
 {% block content %}
+{% load static %}
+<script src={% static 'article/get_new_posts.js' %}> </script>
 {% for p in posts %}
     <h1>{{ p.title }} опубликовал {{ p.user }} {{ p.dt }}</h1>
     <p>{{ p.text }}</p>
