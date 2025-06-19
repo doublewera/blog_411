@@ -7,6 +7,7 @@ urlpatterns = [
     path('',             views.main, name='mainpage'),
     path('howto/',       views.summary, name='summary'),
     path('myfetch/',     views.myfetch, name='myfetch'),
+    path('check_math/',  views.checker,   name='check_my_math'),
     path('multidata/',   views.multidata, name='multi_tbl_data'),
     path('multitable/',  views.mult, name='multi_tbl_name'),
     path('login/', auth_views.LoginView.as_view(

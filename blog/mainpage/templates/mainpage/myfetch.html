@@ -1,7 +1,11 @@
 {% load static %}
 <script src={% static 'mainpage/script.js' %}></script>
-<ul>
+<link rel="stylesheet" href={% static 'mainpage/style.css' %}>
+<form id="math_questions">
+    {% csrf_token %}
+<ol>
     <input type="button" onclick="getquestions()" value="Вопросики">
+    <input type="button" onclick="checkanswers()" value="Проверить">
     <div id="q_place"></div>
 {% for q in questions %}
     <li>
@@ -10,4 +14,5 @@
         <input type="number">
     </li> 
 {% endfor %}
-</ul>
+</ol>
+</form>
