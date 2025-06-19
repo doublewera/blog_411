@@ -93,6 +93,7 @@ def check_answers(answers):
         a = int(a)
         b = int(b)
         correct[name] = str(a+b) == answers[name]
+    print('Проверка завершена!', correct)
     return JsonResponse(correct)
     correct = {
         'i=0q=5+10': True,

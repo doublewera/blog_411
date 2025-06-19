@@ -41,6 +41,7 @@ function add_questions(data) {
         let inp = document.createElement('input')
         //inp.value = pair[0] + pair[1]
         inp.setAttribute('name', 'i=' + i + 'q=' + pair[0] + '+' + pair[1])
+        // ОШИБКА! МОГУТ БЫТЬ ПОВТОРЯЮЩИЕСЯ ИМЕНА! НАДО ВСПОМИНАТЬ, СКОЛЬКО У СПИСКА БЫЛО ДЕТЕЙ
         // 4. Разместить поле ввода в абзаце
         li.appendChild(inp)
         i++;
@@ -48,35 +49,52 @@ function add_questions(data) {
 }
 
 function checkanswers() {
-    let post_me = {}
-    for (let key of math_questions) {
-        console.log(key)
-        if (key.name[0] == 'i') {
-            post_me[key.name] = key.value
+    /**
+     * Данная функция вызываетс для проверки ответов пользователя на арифметические примеры
+     * не потому что JavaScript не мог бы это сделать сам без питона, а чтобы показать,
+     * как отправлять данные НА сервер и получить с сервера ОТВЕТ.
+     */
+    let post_me = {}  // Этот словарь мы отправим на сервер для проверки
+    for (let next_input of math_questions) {
+        /** Перебираем форму. JavaScript возвращает нам сразу ссылки на поля ввода */
+        console.log(next_input)  // Выводить поле ввода в консоль необязательно, но наглядно
+        if (next_input.name[0] == 'i') {
+            // Если имя поля ввода начинается на i, оно нам подходит. ЭТО НЕ ВСЕГДА ТАК!
+            // В нашей задаче поля с вводом от пользователя называются типа 'i=7q=5+5'
+            post_me[next_input.name] = next_input.value
+            // Записали в словарь, который мы будем отправлять на сервер, новую пару: имя, ответ
         }
     }
-    console.log(post_me)
+    console.log('Отправляем ваши ответы на проверку: ', post_me)  // полюбовались на список ответов пользователя, напечатав его в консоль
     fetch('/check_math/', {
         method: 'POST',
-        body: JSON.stringify(post_me),
+        body: JSON.stringify(post_me),   // Для сервера превратили ответы (объект, словарь, джсон) В СТРОКУ!
         //POST: JSON.stringify(post_me),
         headers: {
             'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            // БЕЗ ЭТОГО ЗАГОЛОВКА ДЖАНГО НЕ ПРИМЕТ ПОСТ-ЗАПРОС!
         }
     }).then(
         (response) => {
+            // ПРИШЛО Обещание от сервера выдать ответ
             console.log(
                 'Ваш экзамен проверен ',
                 response.status,
                 response)
-            // надо проверять код ответа!
-            return response.json()
+            // надо проверять код ответа! Если 200, то всё ок...
+            return response.json()  // Требуем выдать ответ в виде json, ЗНАЯ, что от сервера он пришёл в этом виде
         }
     ).then(
         (data) => {
             console.log('МЫ СМОГЛИ ПРОЧЕСТЬ ОТВЕТ СЕРВЕРА: ', data)
-            // console.log(q_place.innerHTML)
-            // q_place.innerHTML += data
+            /**
+             * data = {
+                    'i=0q=5+10': True,
+                    'i=1q=3+3':  True,
+                    'i=2q=2+2':  False,
+                }
+             */
+            // От сервера пришли true, false на каждое поле ввода. Их надо пометить классами correct, wrong
             for (let input_name in data) {
                 if (data[input_name]) {  // == True
                     math_questions[input_name].setAttribute('class', 'correct')
